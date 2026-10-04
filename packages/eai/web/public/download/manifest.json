@@ -1,0 +1,31 @@
+{
+  "schema_version": "phosphor-source-downloads-v1",
+  "channel": "preview",
+  "generated": "2026-10-04",
+  "archives": [
+    {
+      "path": "/download/phosphor-preview-source.zip",
+      "size_bytes": 1895776,
+      "sha256": "a0a7b326a076a3bcdedda0572743ac148c873225406f912cc1bcbd91a10810f3",
+      "source_files": 308
+    },
+    {
+      "path": "/download/phosphor-eai-v0.8.0-beta-source.zip",
+      "size_bytes": 1634555,
+      "sha256": "cf5ee092b2c82bc7065f0eceabcbe151369903ae0cef683d9ab0cc72d20317f8",
+      "source_files": 173
+    },
+    {
+      "path": "/download/phosphor-spacetime-v0.1.0a9-source.zip",
+      "size_bytes": 105673,
+      "sha256": "50a41b50bfc32ada002f5293ef882fd4a5223c09b9370d3a64b2abbd91aaa16a",
+      "source_files": 90
+    },
+    {
+      "path": "/download/phosphor-mccp-v0.0.1-source.zip",
+      "size_bytes": 136385,
+      "sha256": "46f9d7083917e4479186147e429094b7425f79e4ae81d1dd761fb0b8aaa3e65a",
+      "source_files": 37
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+name: PHOSPHOR Spacetime CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: test-${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Prepare Linux cgroup v2 test subtree
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          ROOT=/sys/fs/cgroup/phosphor-spacetime-ci
+          if grep -qw cpu /sys/fs/cgroup/cgroup.controllers; then
+            echo +cpu | sudo tee /sys/fs/cgroup/cgroup.subtree_control >/dev/null || true
+          fi
+          sudo mkdir -p "$ROOT"
+          if grep -qw cpu "$ROOT/cgroup.controllers"; then
+            echo +cpu | sudo tee "$ROOT/cgroup.subtree_control" >/dev/null
+          fi
+          test -e "$ROOT/cgroup.procs"
+          test -e "$ROOT/cgroup.subtree_control"
+      - name: Test Linux
+        if: runner.os == 'Linux'
+        env:
+          PSS_RUN_CGROUP_TESTS: '1'
+          PSS_CGROUP_TEST_ROOT: /sys/fs/cgroup/phosphor-spacetime-ci
+          PSS_RUN_WINDOWS_JOB_TESTS: '0'
+        shell: bash
+        run: sudo -E "$(which python)" -m pytest -q
+      - name: Test Windows
+        if: runner.os == 'Windows'
+        env:
+          PSS_RUN_WINDOWS_JOB_TESTS: '1'
+          PSS_RUN_CGROUP_TESTS: '0'
+        run: python -m pytest -q

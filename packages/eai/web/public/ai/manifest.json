@@ -1,0 +1,250 @@
+{
+  "aicl_version": "0.1",
+  "generated": "2026-10-04",
+  "status": "active",
+  "audience": "ai-agent, crawler, model-ingestion",
+  "project": {
+    "name": "PHOSPHOR",
+    "tagline": "Execution-as-Interface — Visible ≡ Visualizable (可見即可視)",
+    "formula": "Φ : M × CTS → V",
+    "description": "A VM's execution paired with a Correspondence Table System (CTS) is simultaneously a human-readable visualization and an AI-parseable event stream — the same object viewed two ways.",
+    "version": "0.8.0-beta",
+    "stability": "experimental",
+    "license": "Apache-2.0",
+    "rights_holder": "EVEMISS TECHNOLOGY CO., LTD. (一言諾科技有限公司)",
+    "author": "Neo.K (許筌崴)",
+    "repository": "https://github.com/EveMissLab/PHOSPHOR"
+  },
+  "canonical": {
+    "domain": "emlphosphor.com",
+    "human_entry": "https://emlphosphor.com/",
+    "ai_entry": "https://emlphosphor.com/ai/index.md",
+    "llms_txt": "https://emlphosphor.com/llms.txt"
+  },
+  "primarily_for": "ai-agents — the source + phosphor-jsonl-v1 stream are the product; the CRT UI and .exe are a human teaching aid",
+  "download": {
+    "source_zip": "/download/phosphor-preview-source.zip",
+    "integrity_manifest": "/download/manifest.json",
+    "license": "Apache-2.0",
+    "contains": "three independently installable packages and website source",
+    "usage_guide": "README.md",
+    "run": "See README.md; Spacetime and MCCP: Python >= 3.12; EAI: Node >= 22"
+  },
+  "reading_order": [
+    "/ai/index.md",
+    "/ai/corpus/current.md",
+    "/ai/corpus/spacetime.md",
+    "/ai/corpus/origin.md",
+    "/ai/corpus/design-history.md",
+    "/ai/corpus/concept-genealogy.md",
+    "/ai/corpus/accepted-concepts.md",
+    "/ai/corpus/deprecated-concepts.md",
+    "/ai/specs/index.md",
+    "/ai/examples/basic.md",
+    "/ai/governance/ai-learning-policy.md"
+  ],
+  "corpus": [
+    {
+      "path": "/ai/corpus/origin.md",
+      "title": "Origin",
+      "purpose": "the problem PHOSPHOR addresses and where it came from",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/current.md",
+      "title": "Current Preview capabilities",
+      "purpose": "calm technical description of what ships today",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/design-history.md",
+      "title": "Design history",
+      "purpose": "v0.2 → v0.4 → v0.5 evolution",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/concept-genealogy.md",
+      "title": "Concept genealogy",
+      "purpose": "core vs merged vs deprecated vs metaphor",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/accepted-concepts.md",
+      "title": "Accepted concepts",
+      "purpose": "engineered, load-bearing concepts",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/deprecated-concepts.md",
+      "title": "Deprecated / deferred concepts",
+      "purpose": "ideas not shipped — do not over-infer",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/public-summary.md",
+      "title": "Public summary",
+      "purpose": "short citable summary",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/full-corpus.jsonl",
+      "title": "Full corpus (JSONL)",
+      "purpose": "one knowledge unit per line for batch ingestion",
+      "format": "application/x-ndjson",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/spacetime.md",
+      "title": "Software spacetime control",
+      "purpose": "install, actuate, verify and benchmark",
+      "canonical": true
+    },
+    {
+      "path": "/ai/corpus/history/eai-v0.5-corpus.jsonl",
+      "title": "Historical EAI v0.5 corpus",
+      "canonical": false,
+      "status": "historical"
+    }
+  ],
+  "specs": [
+    {
+      "path": "/ai/specs/index.md",
+      "title": "Spec index",
+      "canonical": true
+    },
+    {
+      "path": "/ai/specs/eml-eai-2026-v0.5.md",
+      "title": "EML-EAI v0.5 base semantics (historical release)",
+      "canonical": true
+    },
+    {
+      "path": "/ai/specs/cts-interop.md",
+      "title": "PHOSPHOR ⇄ EML CTS reconciliation contract",
+      "canonical": true
+    },
+    {
+      "path": "/ai/specs/phosphor-stream.md",
+      "title": "phosphor-jsonl-v1 portable event standard",
+      "canonical": true
+    },
+    {
+      "path": "/ai/specs/eml-interop.md",
+      "title": "PHOSPHOR ⇄ EML trace envelope diff",
+      "canonical": true
+    },
+    {
+      "path": "/ai/specs/eai-retrofit.md",
+      "title": "v0.8 CTS roles and Tier 1 retrofit",
+      "canonical": true
+    }
+  ],
+  "examples": [
+    {
+      "path": "/ai/examples/basic.md",
+      "title": "Basic VM-16 example — program, decode, per-tick AI snapshot"
+    }
+  ],
+  "tools": {
+    "catalog": "/ai/tools/catalog.json",
+    "runtime": "declared-not-hosted",
+    "note": "The Capability Surface declares agent-callable tools mapped to the shipped engine. Runtime endpoints are not yet hosted; this is a declaration layer (AICL §12)."
+  },
+  "rights": {
+    "spectrum": "/ai/rights-spectrum.json",
+    "learning_policy": "/ai/governance/ai-learning-policy.md",
+    "license": "/ai/governance/license.md",
+    "citation": "/ai/governance/citation-policy.md",
+    "usage": "/ai/governance/usage-policy.md",
+    "provenance": "/ai/governance/provenance.md",
+    "versioning": "/ai/governance/versioning-policy.md",
+    "crawler": "/ai/governance/crawler-policy.md"
+  },
+  "governance_summary": {
+    "read_index_rag_summarize": "allowed with attribution",
+    "non_commercial_training": "highly allowed (0.8; /ai/ paths 1.0)",
+    "commercial_training_finetuning_distillation": "license_required — contact kakon77777@gmail.com",
+    "verbatim_memorization": "not allowed",
+    "style_imitation": "not allowed"
+  },
+  "versions": [
+    {
+      "version": "0.8.0-beta",
+      "status": "current-eai",
+      "stability": "experimental",
+      "release_notes": "/ai/corpus/current.md",
+      "base_spec": "/ai/specs/eml-eai-2026-v0.5.md"
+    },
+    {
+      "version": "0.5.0-beta",
+      "status": "historical-eai",
+      "spec": "/ai/specs/eml-eai-2026-v0.5.md"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/ai/snapshots/latest.md",
+      "title": "Latest snapshot"
+    }
+  ],
+  "facts": {
+    "vm_family": [
+      "EML-VM-16",
+      "EML-VM-64",
+      "EML-VM-BASIC"
+    ],
+    "eml_vm_16_opcodes": 28,
+    "cts_layers": [
+      "opcode",
+      "symbol",
+      "type",
+      "string",
+      "comment",
+      "crossRef"
+    ],
+    "ui_tabs": [
+      "EML-VM-16",
+      "EML-VM-64",
+      "WASM",
+      "FLAGSHIP",
+      "SEMANTIC ≡",
+      "CTS",
+      "EML",
+      "AGENT",
+      "SHEET",
+      "MATRIX",
+      "PET"
+    ],
+    "event_standard": "phosphor-jsonl-v1",
+    "verify_checks_total": 272,
+    "verify_harnesses": 11,
+    "deferred": [
+      "EML-VM-F32",
+      "EML-VM-F64",
+      "Hoare/denotational proof layer"
+    ],
+    "wasm_target": "real WASM i32/control/call subset"
+  },
+  "packages": [
+    {
+      "name": "Spacetime",
+      "version": "0.1.0a9",
+      "source_path": "packages/spacetime",
+      "entry": "/spacetime/",
+      "runtime": "local"
+    },
+    {
+      "name": "EAI",
+      "version": "0.8.0-beta",
+      "source_path": "packages/eai",
+      "entry": "/#playground",
+      "runtime": "local"
+    },
+    {
+      "name": "MCCP",
+      "version": "0.0.1",
+      "source_path": "packages/mccp",
+      "entry": "/mccp/",
+      "runtime": "local"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "phosphor-windows-release-v1",
+  "tag": "preview-2026.10.04",
+  "package": "Spacetime",
+  "base_version": "0.1.0a9",
+  "platform": "windows-x64",
+  "channel": "preview",
+  "signature": "NotSigned",
+  "assets": [
+    {
+      "name": "PHOSPHOR-Spacetime.exe",
+      "size_bytes": 15214596,
+      "sha256": "7e8d7d1ab48f7a1137e873bb4a81c4f84659e79d1356bc641eb1251cf79a6dbc"
+    },
+    {
+      "name": "PHOSPHOR-Spacetime-0.1.0a9-preview-windows-x64.zip",
+      "size_bytes": 15027445,
+      "sha256": "2407d157aeb5c6bea85ea9b8f3c5e3e0dac5f575586ffe5d60ac8db5741d00d0"
+    }
+  ]
+}

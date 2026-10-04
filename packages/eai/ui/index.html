@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PHOSPHOR · EML-VM-16</title>
+    <style>
+      html, body, #root { margin: 0; height: 100%; background: var(--p-bg, #040c04); }
+      * { box-sizing: border-box; }
+    </style>
+    <script>
+      // Apply the stored theme before first paint — avoids a flash of the
+      // default palette on reload. ThemeSwitcher re-applies this on mount.
+      try {
+        var t = localStorage.getItem('phosphor-ui-theme');
+        if (t) document.documentElement.dataset.phosphorTheme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

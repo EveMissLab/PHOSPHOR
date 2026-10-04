@@ -1,0 +1,121 @@
+{
+  "aicl_surface": "capability",
+  "version": "0.1",
+  "runtime": "declared-not-hosted",
+  "note": "This is a declaration layer (AICL §7, §12). The tools below map to capabilities that already exist in the shipped PHOSPHOR engine (github.com/EveMissLab/PHOSPHOR/tree/main/packages/eai). HTTP/MCP endpoints are NOT yet hosted; schemas are published so agents can plan against a stable contract and so a future runtime can be added without breaking callers.",
+  "conventions": {
+    "success_envelope": { "ok": true, "result": "<tool-specific>" },
+    "error_envelope": { "ok": false, "error": { "code": "STRING", "message": "STRING", "recoverable": true } },
+    "byte_encoding": "hex string, whitespace-insensitive, e.g. \"11 05 21 03 01\""
+  },
+  "tools": [
+    {
+      "name": "decode",
+      "description": "Decode one EML-VM-16 instruction (2 bytes) to its mnemonic plus CTS context (symbol / comment / region).",
+      "engine_symbol": "decode() — eml-vm16-core.ts",
+      "permission": "public",
+      "rate_limit": "n/a (declared)",
+      "version": "0.1",
+      "input_schema": {
+        "type": "object",
+        "required": ["bytes"],
+        "properties": {
+          "bytes": { "type": "string", "description": "2 hex bytes: [opcode][arg]" },
+          "cts": { "type": "object", "description": "optional CTS overlay for symbol/comment resolution" }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "mnemonic": { "type": "string" },
+          "argType": { "type": "string", "enum": ["NONE", "REG_REG", "REG_IMM4", "REG_ONLY", "ADDR8"] },
+          "description": { "type": "string" },
+          "flagsWritten": { "type": "array", "items": { "type": "string", "enum": ["Z", "N", "G"] } }
+        }
+      },
+      "error_schema": { "$ref": "#/conventions/error_envelope" },
+      "examples": [
+        { "input": { "bytes": "20 10" }, "output": { "mnemonic": "ADD R1, R0", "argType": "REG_REG", "flagsWritten": [] } }
+      ]
+    },
+    {
+      "name": "run",
+      "description": "Execute an EML-VM-16 program headless and return the phosphor-jsonl-v1 snapshot stream (one VMSnapshot per tick). AI-mode projection of Φ : M × CTS → V.",
+      "engine_symbol": "createHeadlessVM / buildHeadlessSnapshot — headless-vm.ts, headless-snapshot.ts",
+      "permission": "public",
+      "rate_limit": "declared",
+      "version": "0.1",
+      "input_schema": {
+        "type": "object",
+        "required": ["program"],
+        "properties": {
+          "program": { "type": "string", "description": "hex bytes, or a named preset (e.g. \"fibonacci\")" },
+          "max": { "type": "integer", "description": "max ticks", "default": 256 }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "format": { "type": "string", "const": "phosphor-jsonl-v1" },
+          "ticks": { "type": "integer" },
+          "snapshots": { "type": "array", "items": { "type": "object" } }
+        }
+      },
+      "error_schema": { "$ref": "#/conventions/error_envelope" }
+    },
+    {
+      "name": "describe-effect",
+      "description": "Return the per-instruction operational semantics (reads / writes / flags / memory / control) for a VM-16 instruction.",
+      "engine_symbol": "describeEffect — eml-semantic.ts (v0.5)",
+      "permission": "public",
+      "version": "0.1",
+      "input_schema": { "type": "object", "required": ["bytes"], "properties": { "bytes": { "type": "string" } } },
+      "output_schema": { "type": "object", "properties": { "reads": {}, "writes": {}, "flags": {}, "control": {} } },
+      "error_schema": { "$ref": "#/conventions/error_envelope" }
+    },
+    {
+      "name": "semantic-equiv",
+      "description": "Judge whether two byte sequences are semantically equivalent by running both and comparing observable output. Three-valued verdict; a counterexample is returned when not equivalent. With a single input slot (all 256 values) the enumeration is exhaustive and an 'equivalent' verdict is a proof; with two or more input slots it samples (exhaustive:false) unless exhaustive enumeration is forced.",
+      "engine_symbol": "semanticEquiv — eml-semantic.ts (v0.5)",
+      "permission": "public",
+      "version": "0.1",
+      "input_schema": {
+        "type": "object",
+        "required": ["a", "b"],
+        "properties": {
+          "a": { "type": "string", "description": "hex bytes, program A" },
+          "b": { "type": "string", "description": "hex bytes, program B" }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "verdict": { "type": "string", "enum": ["equivalent", "not-equivalent", "inexpressible"] },
+          "exhaustive": { "type": "boolean", "description": "true = the verdict is a proof, not a sample" },
+          "counterexample": { "type": ["object", "null"] }
+        }
+      },
+      "error_schema": { "$ref": "#/conventions/error_envelope" }
+    },
+    {
+      "name": "ingest-eml-trace",
+      "description": "Ingest an EML phosphor-jsonl-v1 execution trace and extract eml:equiv / eml:bug / lifecycle events for PHOSPHOR-side views.",
+      "engine_symbol": "ingestEmlTrace — stream/eml-consumer.ts (v0.5)",
+      "permission": "public",
+      "version": "0.1",
+      "input_schema": { "type": "object", "required": ["trace"], "properties": { "trace": { "type": "string", "description": "phosphor-jsonl-v1 lines" } } },
+      "output_schema": { "type": "object", "properties": { "events": { "type": "array" } } },
+      "error_schema": { "$ref": "#/conventions/error_envelope" }
+    },
+    {
+      "name": "find-anomalies",
+      "description": "Scan a phosphor-jsonl-v1 event stream and flag anomalies (e.g. a non-zero agent:done exit code).",
+      "engine_symbol": "findAnomalies — stream/phosphor-stream.ts",
+      "permission": "public",
+      "version": "0.1",
+      "input_schema": { "type": "object", "required": ["events"], "properties": { "events": { "type": "string", "description": "phosphor-jsonl-v1 lines" } } },
+      "output_schema": { "type": "object", "properties": { "anomalies": { "type": "array" } } },
+      "error_schema": { "$ref": "#/conventions/error_envelope" }
+    }
+  ]
+}

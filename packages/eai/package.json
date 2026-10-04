@@ -1,0 +1,33 @@
+{
+  "name": "phosphor",
+  "version": "0.8.0-beta.0",
+  "description": "PHOSPHOR — Execution-as-Interface (EAI) machine-code visualization infrastructure. EML-EAI-2026. v0.8 is an EXPERIMENTAL/beta release.",
+  "type": "module",
+  "author": "Neo.K (許筌崴) · EveMissLab (一言諾科技有限公司)",
+  "license": "Apache-2.0",
+  "scripts": {
+    "verify": "tsx integration.ts",
+    "verify:ws": "tsx test-ws.ts",
+    "verify:stream": "tsx stream/test-stream.ts",
+    "verify:headless": "tsx test-headless.ts",
+    "verify:eml": "tsx stream/test-eml-consumer.ts",
+    "verify:semantic": "tsx test-semantic.ts",
+    "verify:sheet": "tsx spreadsheet/test-sheet.ts",
+    "phosphor": "tsx headless-vm.ts",
+    "scan": "tsx stream/scan.ts",
+    "typecheck": "tsc --noEmit",
+    "verify:sheet-control": "tsx spreadsheet/test-sheet-control.ts",
+    "verify:wasm": "tsx test-wasm.ts",
+    "verify:wasm-semantic": "tsx test-wasm-semantic.ts",
+    "verify:rpn": "tsx test-rpn.ts"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.12",
+    "tsx": "^4.22.4",
+    "typescript": "^5.6.0"
+  }
+}

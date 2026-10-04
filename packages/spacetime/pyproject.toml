@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phosphor-spacetime"
+version = "0.1.0a9"
+description = "AI-native Software Spacetime Manager reference runtime"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "Apache-2.0"}
+authors = [
+  {name = "Neo.K (Hsu Chuan-Wei)"}
+]
+dependencies = [
+  "pydantic>=2.7",
+  "jsonschema>=4.22",
+  "psutil>=6.0"
+]
+
+[project.scripts]
+pss = "phosphor_spacetime.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+phosphor_spacetime = ["schemas/*.json"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"

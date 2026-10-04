@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PHOSPHOR design system — the phosphor-green CRT identity, elevated.
+   Palette locked by the client; type pairing JetBrains Mono / IBM Plex Sans.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-bg: #040c04;
+  --color-bg-2: #07140a;
+  --color-surface: #081c0e;
+  --color-line: #0e2a16;
+
+  --color-phosphor: #00ff41;   /* primary phosphor green */
+  --color-fg: #1aee44;         /* default foreground green */
+  --color-fg-soft: #7adb9a;    /* readable body green (≥4.5:1 on bg) */
+  --color-muted: #2f6a4a;      /* secondary / labels */
+  --color-faint: #163a26;      /* hairlines, dim */
+
+  --color-mint: #5af0c8;       /* v0.5 semantic-layer accent */
+  --color-ai: #00d2ff;         /* AI-mode / stream accent */
+  --color-amber: #ffaa00;      /* experimental / beta */
+  --color-danger: #ff5a5a;
+
+  --font-mono: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow: 0 0 10px rgba(0, 255, 65, 0.45);
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg-soft);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(0, 255, 65, 0.22); color: #eafff0; }
+
+/* Headings + code use the mono signature */
+.font-mono { font-family: var(--font-mono); }
+.glow { text-shadow: var(--shadow-glow); }
+.glow-mint { text-shadow: 0 0 10px rgba(90, 240, 200, 0.4); }
+.glow-ai { text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+
+/* ── CRT overlays — the brand signature, fixed over everything, non-interactive ── */
+.crt-scanlines::before {
+  content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 1px, rgba(0,0,0,0.10) 1px, rgba(0,0,0,0.10) 2px);
+}
+.crt-vignette::after {
+  content: ""; position: fixed; inset: 0; z-index: 59; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 38%, transparent 52%, rgba(0,0,0,0.55) 100%);
+}
+
+/* Subtle phosphor flicker for the wordmark (disabled for reduced motion) */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.72; }
+  94% { opacity: 1; }
+  97% { opacity: 0.86; }
+}
+.flicker { animation: flicker 6s infinite steps(1); }
+
+/* Terminal framing: corner ticks on a bordered block */
+.term-frame { position: relative; border: 1px solid var(--color-line); }
+.term-frame::before, .term-frame::after {
+  content: ""; position: absolute; width: 8px; height: 8px; border: 1px solid var(--color-phosphor);
+}
+.term-frame::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.term-frame::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flicker { animation: none; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHOSPHOR MCCP — Multiscale Computational Comprehension Platform</title>
+<meta name="description" content="PHOSPHOR MCCP traces a real running program, builds a computational graph of what actually happened, and explains it grounded in trace evidence. A sibling project to PHOSPHOR — in progress, not yet complete.">
+<link rel="canonical" href="https://emlphosphor.com/mccp/">
+<meta name="robots" content="index,follow">
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 2.5rem 1.25rem 4rem; background: #040c04; color: #7adb9a;
+    font: 15px/1.7 ui-monospace, "JetBrains Mono", "Courier New", monospace;
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  a { color: #00d2ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { color: #1aee44; }
+  .tag { color: #2f6a4a; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; }
+  h1 { color: #00ff41; font-size: clamp(1.5rem, 5vw, 2.1rem); letter-spacing: .02em; margin: .5rem 0 .25rem; line-height: 1.15; }
+  .lead { color: #9fe8bb; font-size: 1.02rem; margin-top: 1rem; }
+  .wip {
+    margin: 1.75rem 0; padding: 1rem 1.15rem; border: 1px solid #ffaa00;
+    background: color-mix(in srgb, #ffaa00 8%, transparent); border-radius: 2px;
+  }
+  .wip strong { color: #ffaa00; }
+  .wip p { margin: .35rem 0 0; color: #e8d9b0; }
+  h2 { color: #5af0c8; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+       margin: 2.5rem 0 .85rem; border-bottom: 1px solid #0e2a16; padding-bottom: .4rem; }
+  p, li { color: #7adb9a; }
+  ul { padding-left: 1.1rem; }
+  li { margin: .4rem 0; }
+  .muted { color: #2f6a4a; }
+  .zh { color: #9fe8bb; }
+  .term-frame { border: 1px solid #0e2a16; padding: 1rem 1.15rem; background: #07140a; margin-top: .75rem; }
+  .status-list li::marker { color: #2f6a4a; }
+  .status-ok { color: #1aee44; }
+  .status-open { color: #ffaa00; }
+  .btn-row { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: .75rem; }
+  .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .55rem 1.1rem; border: 1px solid #0e2a16;
+         border-radius: 2px; font-size: .85rem; color: #7adb9a; }
+  .btn:hover { border-color: #00ff41; color: #00ff41; text-decoration: none; }
+  .btn.solid { background: #00ff41; border-color: #00ff41; color: #021004; font-weight: 600; }
+  .btn.solid:hover { background: #1aee44; color: #021004; }
+  footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid #0e2a16;
+           color: #2f6a4a; font-size: 12px; display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
+  footer a { color: #2f6a4a; }
+  footer a:hover { color: #00d2ff; }
+</style>
+</head>
+<body>
+<main>
+  <p class="tag">// sibling project of <a href="/">PHOSPHOR</a> · not yet complete</p>
+  <h1>PHOSPHOR MCCP<br>Multiscale Computational Comprehension Platform</h1>
+  <p class="lead">See how a real program's execution actually happens — grounded in trace evidence, not guesses.</p>
+
+  <div class="wip">
+    <strong>🚧 This project is incomplete and under active development.</strong>
+    <p>What's on this page describes the current, unfinished state — not a finished product. Expect gaps, rough edges, and frequent changes.</p>
+    <p class="zh"><strong style="color:#ffaa00">目前專案尚未完成，持續更新中。</strong>這頁描述的是現在、還沒做完的狀態，不是成品——會有缺口、粗糙的地方，而且會常常改動。</p>
+  </div>
+
+  <h2>What it is</h2>
+  <p>PHOSPHOR MCCP traces a real running program (Python first), builds a computational
+  graph of what actually happened — functions, files, network calls, processes, never
+  one node per call instance — and lets you click any part of it for an AI explanation
+  that cites the exact trace events behind every claim. Every claim is tagged
+  <code>observed</code> / <code>inferred</code> / <code>hypothesized</code> / <code>verified</code> —
+  the platform never asserts behavior it didn't actually see.</p>
+  <p class="zh">PHOSPHOR MCCP 會追蹤一支真實在跑的程式（先做 Python），把實際發生的事建成一張計算圖——函式、檔案、
+  網路呼叫、行程，不是每次呼叫都算一個節點——點圖上任何一個節點，都能拿到一段引用真實追蹤事件佐證的 AI 解釋。
+  每一句話都標著 <code>observed</code>／<code>inferred</code>／<code>hypothesized</code>／<code>verified</code>
+  ——這個平台不會宣稱它沒有真的觀察到的行為。</p>
+
+  <h2>Relationship to PHOSPHOR</h2>
+  <p>This is a <strong>different codebase</strong> from the PHOSPHOR you're looking at right now
+  (which includes EML-VM-16/64/BASIC and a real WebAssembly target). They share a name
+  and a thesis lineage — <code>Φ : M × CTS → V</code>, generalized here from a toy VM to real
+  running programs on real operating systems — not a repository.</p>
+  <p class="zh">這跟你現在看的這個 PHOSPHOR 是<strong>不同的程式庫</strong>（包含 EML-VM-16/64/BASIC 與真實 WebAssembly 目標）。兩者共用一個名字跟同一條理論脈絡——<code>Φ : M × CTS → V</code>，
+  在這裡從一個玩具 VM 推廣到真實作業系統上跑的真實程式——但不共用同一個程式庫。</p>
+
+  <h2>Install / 安裝與使用</h2>
+  <p>Download and extract the MCCP source, then open that folder. In the full source bundle, use <code>packages/mccp</code>. Python ≥ 3.12.</p>
+  <pre class="term-frame" style="overflow:auto">python -m venv .venv
+.venv/Scripts/python.exe -m pip install -e ".[dev]"
+.venv/Scripts/phosphor.exe run demo_targets/hello_trace.py --trace-id demo1
+.venv/Scripts/python.exe -m uvicorn phosphor_api.app:app --host 127.0.0.1 --port 8000</pre>
+  <p>On Linux/macOS, use <code>.venv/bin/python</code> and <code>.venv/bin/phosphor</code>. Open <code>http://127.0.0.1:8000/</code>. Tracing and graph inspection need no API key. AI explanations require your own <code>ANTHROPIC_API_KEY</code> and transmit selected trace evidence to the configured model. The optional raw timeline uses Perfetto's external viewer.</p>
+  <p class="zh" lang="zh-Hant">追蹤與圖形檢視不需要 AI 金鑰。AI 解釋會把選定的追蹤證據傳給模型；原始追蹤可能包含檔案路徑及程式資料，請保留於本地。原始時間線採用外部 Perfetto viewer。</p>
+  <div class="btn-row"><a class="btn solid" href="/download/phosphor-mccp-v0.0.1-source.zip">Download MCCP source / 下載</a><a class="btn" href="/spacetime/">Spacetime</a></div>
+
+  <h2>Current status</h2>
+  <div class="term-frame">
+    <ul class="status-list">
+      <li><span class="status-ok">done</span> — trace a Python script (function/line, real HTTP, file I/O, SQLite queries), build a bounded computational graph with real caller/callee/database edges (never one node per call), macro/meso projection, a <strong>Complexity Lens</strong> (per-node/edge cost breakdown) and a <strong>Bug Lens</strong> (real error findings + traffic-explosion hotspots), real background memory profiling (peak/mean process RSS), a minimal API + UI with every lens wired in. 106 tests, all real (no mocked pipeline internals).</li>
+      <li><span class="status-ok">done</span> — live AI-explanation output verified against a real model, not just offline. Every claim is checked in code (not just prompted): a claim marked "observed" that cites evidence it wasn't actually shown gets caught and downgraded automatically. A real run against a heavily-recursive function surfaced and fixed a real bug — its evidence overflowed the model's context limit — then the fix was generalized into a five-gate adaptive pipeline: score events by real significance (errors, latency outliers), guarantee every part of the evidence keeps at least some representation, hard-cap the total regardless of how large or adversarial the trace is. Re-verified live against the same model after the redesign.</li>
+      <li><span class="status-open">open</span> — Perfetto's embedded raw-timeline view completes its handshake but the actual visual render has never been confirmed with a screenshot.</li>
+      <li><span class="status-open">open</span> — async task tracing and dedicated Process/Thread graph nodes (blocked on a schema decision for how to express "runs in process/thread").</li>
+      <li><span class="status-open">open</span> — everything past this: multi-file/service tracing, non-Python targets, Intent Preservation Mode, semantic zoom to source-line/bytecode level, auth/hosting.</li>
+    </ul>
+  </div>
+
+  <div class="btn-row">
+    <a class="btn solid" href="https://github.com/EveMissLab/PHOSPHOR/tree/main/packages/mccp">GitHub ↗</a>
+    <a class="btn" href="/">← PHOSPHOR</a>
+  </div>
+
+  <footer>
+    <span style="color:#00ff41">PHOSPHOR MCCP</span>
+    <span>© 2026 EVEMISS TECHNOLOGY CO., LTD.（一言諾科技有限公司）</span>
+    <span>Author 許筌崴 Neo.K</span>
+    <span>Apache-2.0</span>
+  </footer>
+</main>
+</body>
+</html>

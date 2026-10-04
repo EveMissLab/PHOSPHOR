@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHOSPHOR · /ai/ — AI Ingestion & Capability Layer</title>
+<meta name="description" content="Machine-readable AI-native layer for emlphosphor.com — manifest, corpus, specs, examples, governance, and AI learning rights (AICL · AIRS · AILP).">
+<link rel="canonical" href="https://emlphosphor.com/ai/">
+<meta name="robots" content="index,follow">
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 2.5rem 1.25rem 4rem; background: #040c04; color: #7adb9a;
+    font: 15px/1.65 ui-monospace, "JetBrains Mono", "Courier New", monospace;
+  }
+  main { max-width: 52rem; margin: 0 auto; }
+  h1 { color: #00ff41; font-size: 1.5rem; letter-spacing: .06em; margin: 0 0 .25rem; }
+  h2 { color: #5af0c8; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+       margin: 2.25rem 0 .75rem; border-bottom: 1px solid #0e2a16; padding-bottom: .35rem; }
+  p, li { color: #7adb9a; }
+  a { color: #00d2ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { color: #1aee44; }
+  .lead { color: #9fe8bb; }
+  ul { padding-left: 1.1rem; }
+  li { margin: .3rem 0; }
+  .muted { color: #2f6a4a; }
+  .note { color: #ffaa00; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #0e2a16;
+           color: #2f6a4a; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>PHOSPHOR · /ai/</h1>
+  <p class="lead">The machine-readable AI Ingestion &amp; Capability Layer (AICL) for
+  <a href="/">emlphosphor.com</a>. This layer is for AI systems, agents, crawlers, and
+  model ingestion — not a human UI. Prefer these static files over scraping the
+  rendered single-page app.</p>
+
+  <p><code>&Phi; : M &times; CTS &rarr; V</code> — Execution-as-Interface ·
+  <strong>Visible &equiv; Visualizable</strong> · EAI v0.8.0-beta · Spacetime 0.1.0a9 · MCCP 0.0.1 (PREVIEW) · Apache-2.0</p>
+
+  <p><a href="/spacetime/">Spacetime install + temporal demo</a> · <a href="/mccp/">MCCP install</a> · <a href="/download/manifest.json">Download hashes</a></p>
+  <h2>Start here</h2>
+  <ul>
+    <li><a href="/llms.txt">/llms.txt</a> — LLM / agent entry index</li>
+    <li><a href="/ai/index.md">/ai/index.md</a> — this page, as canonical Markdown</li>
+    <li><a href="/ai/manifest.json">/ai/manifest.json</a> — programmatic manifest (reading order, versions, rights)</li>
+    <li><a href="/ai/rights-spectrum.json">/ai/rights-spectrum.json</a> — AI learning rights (AIRS · AILP)</li>
+    <li><a href="/download/phosphor-preview-source.zip">/download/phosphor-preview-source.zip</a> — three packages + root <code>README.md</code> <span class="muted">(Apache-2.0; sizes in /download/manifest.json)</span></li>
+  </ul>
+  <p class="note">Built primarily for agents — the source and the <code>phosphor-jsonl-v1</code> stream are the product; the CRT UI and <code>.exe</code> only let a human see the principle.</p>
+
+  <h2>Corpus</h2>
+  <ul>
+    <li><a href="/ai/corpus/current.md">current.md</a> — current Preview capabilities</li>
+    <li><a href="/ai/corpus/origin.md">origin.md</a> — the problem and where it came from</li>
+    <li><a href="/ai/corpus/design-history.md">design-history.md</a> — v0.2 → v0.4 → v0.5</li>
+    <li><a href="/ai/corpus/concept-genealogy.md">concept-genealogy.md</a> — core vs merged vs deprecated</li>
+    <li><a href="/ai/corpus/accepted-concepts.md">accepted-concepts.md</a> · <a href="/ai/corpus/deprecated-concepts.md">deprecated-concepts.md</a></li>
+    <li><a href="/ai/corpus/public-summary.md">public-summary.md</a> — short citable summary</li>
+    <li><a href="/ai/corpus/full-corpus.jsonl">full-corpus.jsonl</a> — one knowledge unit per line</li>
+  </ul>
+
+  <h2>Specs</h2>
+  <ul>
+    <li><a href="/ai/specs/index.md">index.md</a> — spec index</li>
+    <li><a href="/ai/specs/eml-eai-2026-v0.5.md">eml-eai-2026-v0.5.md</a> — historical base semantics</li>
+    <li><a href="/ai/specs/cts-interop.md">cts-interop.md</a> · <a href="/ai/specs/phosphor-stream.md">phosphor-stream.md</a> · <a href="/ai/specs/eml-interop.md">eml-interop.md</a></li>
+  </ul>
+
+  <h2>Examples &amp; Tools</h2>
+  <ul>
+    <li><a href="/ai/examples/basic.md">examples/basic.md</a> — worked VM-16 example</li>
+    <li><a href="/ai/tools/catalog.json">tools/catalog.json</a> — declared agent-callable tools <span class="note">(declared, not yet hosted)</span></li>
+  </ul>
+
+  <h2>Governance &amp; Rights</h2>
+  <ul>
+    <li><a href="/ai/governance/ai-learning-policy.md">ai-learning-policy.md</a> — how AI may learn from this content</li>
+    <li><a href="/ai/governance/license.md">license.md</a> — Apache-2.0 + AI-training licensing</li>
+    <li><a href="/ai/governance/citation-policy.md">citation-policy.md</a> · <a href="/ai/governance/usage-policy.md">usage-policy.md</a> · <a href="/ai/governance/provenance.md">provenance.md</a></li>
+    <li><a href="/ai/governance/versioning-policy.md">versioning-policy.md</a> · <a href="/ai/governance/crawler-policy.md">crawler-policy.md</a></li>
+  </ul>
+
+  <p class="note">Rights, in short: read / index / RAG / summarize freely with attribution;
+  non-commercial training highly allowed; commercial training, fine-tuning, and
+  distillation require a license (kakon77777@gmail.com); no verbatim memorization or
+  style imitation.</p>
+
+  <footer>
+    © 2026 EVEMISS TECHNOLOGY CO., LTD.（一言諾科技有限公司） · author 許筌崴 Neo.K ·
+    Apache-2.0 · AICL v0.1 · <a href="/">← human site</a>
+  </footer>
+</main>
+</body>
+</html>

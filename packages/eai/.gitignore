@@ -1,0 +1,13 @@
+node_modules/
+*.log
+.DS_Store
+dist/
+dist-single/
+*.exe
+*.blob
+.claude/
+# scratch / scratch test files
+_*.ts
+# dev-only monitor logs (not for the public repo)
+*-monitor.jsonl
+sea-prep.blob

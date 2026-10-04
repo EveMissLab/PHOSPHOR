@@ -1,0 +1,6 @@
+# Normalize line endings: store LF in the repo, check out native.
+* text=auto eol=lf
+
+# Treat build/binary artifacts as binary (also gitignored).
+*.exe binary
+*.blob binary

@@ -1,0 +1,125 @@
+{
+  "version": "0.1",
+  "protocol": "AILP",
+  "name": "AI Learning Permission Protocol",
+  "spec": "AIRS / AILP v0.1 — https://emlphosphor.com/ai/specs/index.md",
+  "rights_holder": "EVEMISS TECHNOLOGY CO., LTD. (一言諾科技有限公司) / Neo.K (許筌崴)",
+  "canonical_domain": "emlphosphor.com",
+  "last_updated": "2026-07-01",
+  "notes": "Values are machine-readable preference and rights signals, not standalone legal licenses (see AIRS §8.1). PHOSPHOR's source code is Apache-2.0; this file expresses the author's preference for how AI systems may LEARN from the site's content. Attribution is required in both regimes.",
+  "default_policy": {
+    "search_indexing": 1.0,
+    "metadata_indexing": 1.0,
+    "snippet_indexing": 1.0,
+    "semantic_indexing": 1.0,
+
+    "ai_answer_input": 1.0,
+    "rag_retrieval": 1.0,
+    "context_injection": 1.0,
+    "temporary_session_use": 1.0,
+
+    "summary_generation": 1.0,
+    "short_quote_generation": 0.8,
+    "long_quote_generation": 0.0,
+    "substitutive_generation": 0.0,
+
+    "embedding_generation": 0.8,
+    "embedding_storage": 0.8,
+    "vector_database_use": 0.8,
+
+    "non_commercial_training": 0.8,
+    "commercial_training": "license_required",
+    "fine_tuning": "license_required",
+    "distillation": "license_required",
+    "model_distillation": "license_required",
+    "synthetic_data_generation": 0.5,
+
+    "long_term_memory": 0.6,
+    "model_weight_integration": 0.6,
+    "verbatim_memorization": 0.0,
+    "style_imitation": 0.0,
+
+    "citation_required": true,
+    "attribution_required": true,
+    "link_required": false,
+    "license_required_for_commercial_training": true,
+    "compensation_required_for_commercial_training": true
+  },
+  "paths": [
+    {
+      "path": "/ai/",
+      "description": "The machine-readable AI ingestion layer (corpus, specs, examples). Intended to be learned from.",
+      "policy": {
+        "search_indexing": 1.0,
+        "ai_answer_input": 1.0,
+        "rag_retrieval": 1.0,
+        "embedding_storage": 1.0,
+        "non_commercial_training": 1.0,
+        "commercial_training": "license_required",
+        "citation_required": true,
+        "attribution_required": true
+      }
+    },
+    {
+      "path": "/ai/corpus/",
+      "description": "Canonical AI-readable knowledge corpus. Prefer this over scraping the rendered marketing SPA.",
+      "policy": {
+        "search_indexing": 1.0,
+        "ai_answer_input": 1.0,
+        "rag_retrieval": 1.0,
+        "embedding_storage": 1.0,
+        "non_commercial_training": 1.0,
+        "commercial_training": "license_required",
+        "citation_required": true,
+        "attribution_required": true
+      }
+    },
+    {
+      "path": "/",
+      "description": "Human marketing page (promotional copy). Summarize freely; prefer /ai/corpus/current.md for technical claims.",
+      "policy": {
+        "search_indexing": 1.0,
+        "ai_answer_input": 1.0,
+        "summary_generation": 1.0,
+        "rag_retrieval": 1.0
+      }
+    }
+  ],
+  "licensing_options": [
+    {
+      "id": "non-commercial-research",
+      "description": "Non-commercial AI research training, embedding, and summarization, with attribution.",
+      "allowed": {
+        "non_commercial_training": 1.0,
+        "embedding_storage": 1.0,
+        "summary_generation": 1.0,
+        "rag_retrieval": 1.0
+      },
+      "required": {
+        "attribution": true,
+        "citation": true
+      },
+      "fee": "free"
+    },
+    {
+      "id": "commercial-training",
+      "description": "Commercial AI training, fine-tuning, or distillation under a paid license.",
+      "allowed": {
+        "commercial_training": 1.0,
+        "fine_tuning": 0.8,
+        "distillation": 0.5
+      },
+      "required": {
+        "license_agreement": true,
+        "compensation": true,
+        "attribution": true
+      },
+      "contact": "mailto:kakon77777@gmail.com"
+    }
+  ],
+  "contact": {
+    "licensing": "mailto:kakon77777@gmail.com",
+    "rights": "https://emlphosphor.com/ai/governance/ai-learning-policy.md",
+    "citation": "https://emlphosphor.com/ai/governance/citation-policy.md"
+  }
+}

@@ -1,0 +1,46 @@
+# PHOSPHOR — Spacetime, EAI, MCCP
+
+PHOSPHOR offers three independent local packages under Apache-2.0. Canonical website: https://emlphosphor.com/. Preview source repository: https://github.com/EveMissLab/PHOSPHOR.
+
+## Start here
+- https://emlphosphor.com/spacetime/ — install the software-spacetime reference runtime and control a native logical-time demo
+- https://emlphosphor.com/ai/manifest.json — versions, packages, downloads, reading order, and rights
+- https://emlphosphor.com/ai/corpus/current.md — current capabilities and boundaries
+- https://emlphosphor.com/ai/corpus/spacetime.md — authority, temporal control, benchmarks, and gates
+- https://emlphosphor.com/mccp/ — local Python tracing and graph inspection
+- https://emlphosphor.com/#playground — the EAI browser playground
+
+## Runnable source
+- /download/phosphor-preview-source.zip — all three independently installable packages; read README.md first
+- /download/phosphor-spacetime-v0.1.0a9-source.zip — Spacetime M0–M10 plus Preview delivery fixes and temporal-demo
+- /download/phosphor-eai-v0.8.0-beta-source.zip — EAI VM/WASM, CTS, stream, spreadsheet, UI, and site
+- /download/phosphor-mccp-v0.0.1-source.zip — Python collector, graph, lenses, API, and UI
+- /download/manifest.json — exact archive SHA-256 and sizes
+
+Spacetime: Python >= 3.12; install from its folder with `python -m pip install -e ".[dev]"`; run `pss temporal-demo --rate 2.5 --quanta 20`, `pss matrix C_EVENT_SPARSE`, and `pss gate --git-commit UNKNOWN`. These commands need no API key. Logical rate is native to the synthetic runtime. CPU throttling on Windows/Linux does not rewrite an arbitrary program's logical clock. Most bundled benchmarks are synthetic; AI performance superiority remains unproven.
+
+EAI 0.8.0-beta: Node >= 22; `npm ci`, `npm run typecheck`, `npm run verify:wasm`, and `npm run phosphor -- run --program fibonacci --max 40`. The UI has eleven tabs and uses the same engine. The historical v0.5 spec describes the base semantics; later WASM, spreadsheet, and retrofit additions are in the release and retrofit documents.
+
+MCCP 0.0.1: local Python tracing and graph views work without a model key. Optional AI explanations require ANTHROPIC_API_KEY and send selected trace evidence to the configured model. The optional raw-timeline viewer uses external Perfetto. Keep trace output local.
+
+## Knowledge and specs
+- /ai/index.md
+- /ai/corpus/full-corpus.jsonl
+- /ai/corpus/origin.md
+- /ai/corpus/design-history.md — historical v0.2–v0.5 record
+- /ai/specs/index.md
+- /ai/specs/eml-eai-2026-v0.5.md — historical base semantics
+- /ai/specs/eai-retrofit.md — v0.8 CTS roles and Tier 1 scope
+- /ai/specs/phosphor-stream.md
+- /ai/specs/cts-interop.md
+- /ai/specs/eml-interop.md
+
+## Rights
+- /ai/rights-spectrum.json
+- /ai/governance/ai-learning-policy.md
+- /ai/governance/license.md
+
+Existing content-learning terms remain in the rights documents. Read, index, RAG, and summarize with attribution. Commercial training, fine-tuning, and distillation require a license. Author: Neo.K (許筌崴), EVEMISS TECHNOLOGY CO., LTD.（一言諾科技有限公司）. Code is Apache-2.0.
+
+## Execution boundaries
+Three independent engines and event protocols. The website hosts static documents, downloads, and the browser EAI playground. HTTP/MCP control endpoints are declared, not hosted. Observation and capability do not grant authority. Unsupported or ambiguous mutations fail closed.

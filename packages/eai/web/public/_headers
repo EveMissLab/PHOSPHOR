@@ -1,0 +1,21 @@
+# Cloudflare Pages headers — PHOSPHOR AI-native layer
+# Goal: the /ai/ machine surface is fetchable cross-origin by agents and
+# renders inline in a browser (not force-downloaded), so it is legible to
+# both humans and machines.
+
+/ai/*
+  Access-Control-Allow-Origin: *
+  X-AI-Layer: AICL v0.1; rights=/ai/rights-spectrum.json
+
+/llms.txt
+  Access-Control-Allow-Origin: *
+  Content-Type: text/plain; charset=utf-8
+
+/*.md
+  Content-Type: text/plain; charset=utf-8
+
+/*.jsonl
+  Content-Type: application/x-ndjson; charset=utf-8
+
+/*.json
+  Content-Type: application/json; charset=utf-8

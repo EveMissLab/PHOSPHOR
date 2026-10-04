@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHOSPHOR Spacetime — Software Spacetime Control</title>
+<meta name="description" content="Install the PHOSPHOR Spacetime reference runtime. Observe, authorize, actuate, and verify software domains; run a native logical-time demonstration.">
+<link rel="canonical" href="https://emlphosphor.com/spacetime/">
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#040c04;color:#b2dec3;font:16px/1.7 ui-monospace,Consolas,monospace}main{max-width:960px;margin:auto;padding:48px 24px}a{color:#5af0c8}h1,h2{color:#00ff41;line-height:1.25}h1{font-size:clamp(30px,6vw,52px)}h2{margin-top:44px;font-size:22px}.tag{font-size:12px;color:#9be5b3;letter-spacing:.1em}.lead{font-size:19px}.panel,pre{background:#07140a;border:1px solid #235735;padding:20px;border-radius:4px}pre{font-size:13px;overflow:auto;color:#c1f8d2}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}.btn{display:inline-block;border:1px solid #5af0c8;padding:10px 16px;text-decoration:none}.btn:hover{background:#124a2d}.zh{color:#9fe8bb}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #235735}.table-wrap{overflow-x:auto}code{color:#c1f8d2}footer{margin-top:48px;border-top:1px solid #235735;padding-top:20px;font-size:12px}.flow{color:#5af0c8;overflow-wrap:anywhere}
+</style>
+</head>
+<body><main>
+<p class="tag"><a href="/">PHOSPHOR</a> / SPACETIME · 0.1.0a9 · PREVIEW / PRE-ALPHA</p>
+<h1>Control software spacetime.</h1>
+<p class="zh" lang="zh-Hant"><strong>時空間版本不是作弊引擎。</strong></p>
+<p>Spacetime edition is not a cheat engine.</p>
+<p class="lead">A local reference runtime for observing software domains, checking authority, applying controls, and verifying what actually changed.</p>
+<p class="zh" lang="zh-Hant">在本地觀察軟體域、確認控制權限、執行變更，再讀回驗證。Spacetime 提供原生邏輯時間 runtime，以及 Windows Job Object / Linux cgroup v2 的資源控制介面。</p>
+<p class="flow">Observe → Project → Govern → Authorize → Actuate → Verify → Benchmark → Gate</p>
+<div class="actions"><a class="btn" href="https://github.com/EveMissLab/PHOSPHOR/releases/download/preview-2026.10.04/PHOSPHOR-Spacetime.exe">Windows EXE / 下載執行檔</a><a class="btn" href="/download/phosphor-spacetime-v0.1.0a9-source.zip">Download Spacetime source / 下載</a><a class="btn" href="/download/phosphor-preview-source.zip">All three packages / 完整套件</a><a class="btn" href="https://github.com/EveMissLab/PHOSPHOR/tree/main/packages/spacetime">GitHub</a></div>
+<h2>Run your first time-control demo / 第一個時間控制示範</h2>
+<p>Extract the Spacetime source ZIP and open its folder. Python ≥ 3.12. The demo and gates need no model or API key.</p>
+<p class="zh" lang="zh-Hant">解壓 Spacetime 原始碼，在該資料夾開啟終端機。完整套件中的位置是 <code>packages/spacetime</code>。示範作用於本次建立的模擬 runtime。</p>
+<pre>python -m venv .venv
+# Windows PowerShell
+.venv/Scripts/python.exe -m pip install -e ".[dev]"
+.venv/Scripts/pss.exe temporal-demo --rate 2.5 --quanta 20
+.venv/Scripts/pss.exe matrix C_EVENT_SPARSE
+.venv/Scripts/pss.exe gate --git-commit UNKNOWN</pre>
+<p>Linux/macOS: use <code>.venv/bin/python</code> and <code>.venv/bin/pss</code>.</p>
+<div class="panel"><strong>Expected demo result:</strong> <code>receipt_status: CONFIRMED</code>, realized rate <code>2.5</code>, logical tick <code>50</code>, counter <code>2</code>, phase <code>complete</code>, and equal tick/event-jump state hashes. Event jumping skips <code>47</code> idle ticks while preserving the same state.</div>
+<h2>Which control is available?</h2>
+<div class="table-wrap"><table><thead><tr><th>Provider</th><th>Resource control</th><th>Logical time</th></tr></thead><tbody>
+<tr><td>Synthetic runtime</td><td>Owned deterministic simulation; pause, resume, snapshot, restore</td><td>Native rate control and event jumping</td></tr>
+<tr><td>Windows Job Object</td><td>CPU hard cap, job memory limit; pause/resume has partial verification</td><td>Unsupported</td></tr>
+<tr><td>Linux cgroup v2</td><td>Available CPU, memory, I/O controls and freezer; depends on delegated privileges</td><td>Unsupported</td></tr>
+</tbody></table></div>
+<p class="zh" lang="zh-Hant">邏輯時間倍率和 CPU 配額是不同能力。原生時間控制目前由 synthetic runtime 提供；一般作業系統行程的 CPU 限速不會自動改寫其邏輯時鐘。Provider 能力、目標擁有權與 authority grant 分別檢查。</p>
+<h2>Verify and compare / 驗證與比較</h2>
+<pre>.venv/Scripts/python.exe -m pytest -q
+.venv/Scripts/pss.exe compare runs/&lt;run-a&gt; runs/&lt;run-b&gt;</pre>
+<p>The matrix runs B0–B3 under one correctness contract. Gate 0–6 check schema integrity, observation, actuation authority, temporal semantics, causal governance, AI fallback, and benchmark integrity. Reports preserve failures and unsupported controls.</p>
+<p>Most bundled workloads are synthetic. Hard-gate success does not establish that B2 outperforms B1 or B3 outperforms B2. The current B3 fixture exercises the policy adapter without a paid model call.</p>
+<p class="zh" lang="zh-Hant">目前是可執行的參考 runtime。效能優勢仍需重複實驗；一般 OS 程式的全面時間虛擬化與託管控制服務尚未提供。</p>
+<p><a href="/ai/corpus/spacetime.md">Machine-readable guide</a> · <a href="/download/manifest.json">Download SHA-256 manifest</a> · <a href="/mccp/">MCCP</a> · <a href="/#playground">EAI playground</a></p>
+<footer>© 2026 EVEMISS TECHNOLOGY CO., LTD.（一言諾科技有限公司） · Neo.K (許筌崴) · Apache-2.0</footer>
+</main></body></html>

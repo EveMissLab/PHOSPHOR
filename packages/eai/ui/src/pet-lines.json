@@ -1,0 +1,14 @@
+{
+  "en": {
+    "idle":   ["hi, I'm ready!", "waiting for something to happen~", "let's see what's next"],
+    "active": ["mm, still counting~", "one step at a time, no skipping", "watching closely~"],
+    "write":  ["oh, I wrote something!", "got it, saved that!", "there we go~"],
+    "halted": ["all done, yay!", "finished the whole thing!", "ta-da, all set~"]
+  },
+  "ja": {
+    "idle":   ["やっほー、準備できたよ！", "うーん、待ってるね", "何が起きるかな〜"],
+    "active": ["うんうん、計算ちゅう〜", "一歩ずつだよ", "ちゃんと見てるよ〜"],
+    "write":  ["あ、何か書いたよ！", "うん、ちゃんと覚えたよ！", "できた、これでオッケー〜"],
+    "halted": ["全部終わったよ！やった！", "最後までできたよ〜", "たーだ、完了〜"]
+  }
+}

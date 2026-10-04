@@ -1,0 +1,13 @@
+{
+  "name": "phosphor-exe",
+  "private": true,
+  "version": "0.8.0-beta.0",
+  "description": "Builds PHOSPHOR.exe — a self-contained Node SEA embedding the single-file UI.",
+  "type": "module",
+  "scripts": {
+    "build": "node build-exe.mjs"
+  },
+  "devDependencies": {
+    "postject": "^1.0.0-alpha.6"
+  }
+}

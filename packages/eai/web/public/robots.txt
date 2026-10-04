@@ -1,0 +1,25 @@
+# robots.txt — PHOSPHOR (emlphosphor.com)
+# EVEMISS TECHNOLOGY CO., LTD. (一言諾科技有限公司) · Apache-2.0
+#
+# This site is AI-native. Beyond crawler access rules, it declares HOW AI may
+# learn from its content. Crawlers and agents are asked to read, in order:
+#   1. /llms.txt                 — LLM / agent entry index
+#   2. /ai/manifest.json         — machine-readable resource manifest
+#   3. /ai/rights-spectrum.json  — AI learning / usage / training / compensation rights (AIRS · AILP)
+# See also: /ai/index.md and /ai/governance/ .
+
+# ── Content Signals Policy (coarse signal; the nuanced form is rights-spectrum.json) ──
+# search   = index for search                    → yes
+# ai-input = use as input at answer/inference time → yes
+# ai-train = use to train/fine-tune a model        → yes for non-commercial;
+#            commercial training / fine-tuning / distillation require a license
+#            (see /ai/rights-spectrum.json and /ai/governance/license.md)
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+# AI-learning rights declaration (machine-readable, more detailed than this file):
+# Rights-Spectrum: /ai/rights-spectrum.json
+# LLM-Index: /llms.txt
+
+Sitemap: https://emlphosphor.com/sitemap.xml

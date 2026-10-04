@@ -1,0 +1,1 @@
+Validation scope: CPU weight and CPU max only for the native Linux run. Memory and I/O semantics remain contract-tested through the deterministic backend in M5; expanding native coverage is deferred until the benchmark harness can provision disposable devices safely.

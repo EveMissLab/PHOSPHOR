@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PHOSPHOR MCCP Viewer</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f6f8;
+    --panel-bg: #ffffff;
+    --text: #16181d;
+    --muted: #5b6270;
+    --border: #d7dbe2;
+    --accent: #2563eb;
+    --accent-text: #ffffff;
+    --danger: #b91c1c;
+    --danger-bg: #fdecec;
+
+    --node-function: #2563eb;
+    --node-file: #059669;
+    --node-process: #6b7280;
+    --node-thread: #d97706;
+    --node-host: #9333ea;
+    --node-database: #db2777;
+
+    --evidence-observed: #059669;
+    --evidence-verified: #2563eb;
+    --evidence-inferred: #b45309;
+    --evidence-hypothesized: #b91c1c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161b;
+      --panel-bg: #1c1f26;
+      --text: #e7e9ee;
+      --muted: #9aa2b1;
+      --border: #333844;
+      --accent: #5b8cff;
+      --accent-text: #0b0d12;
+      --danger: #ff8080;
+      --danger-bg: #3a1f1f;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.45 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-bg);
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  header h1 small {
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 8px;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .controls label { display: flex; align-items: center; gap: 6px; }
+  .controls input[type="text"] {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--bg);
+    color: var(--text);
+    min-width: 260px;
+    font: inherit;
+  }
+  button {
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel-bg);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+  }
+  button:hover { border-color: var(--accent); }
+  button.primary {
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .scale-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 1px solid var(--border);
+    padding-left: 10px;
+  }
+  .scale-toggle label { font-weight: 500; cursor: pointer; }
+
+  #status {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 12.5px;
+    max-width: 40vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #status.error { color: var(--danger); font-weight: 600; }
+
+  main {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    min-height: 0;
+  }
+  @media (max-width: 880px) {
+    main { flex-direction: column; }
+  }
+
+  .pane {
+    flex: 1 1 50%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .pane-header {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .pane-header h2 {
+    margin: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .pane-header .meta { font-size: 12.5px; color: var(--muted); margin-left: auto; }
+
+  .view-tabs { display: flex; gap: 4px; }
+  .view-tab {
+    padding: 3px 9px;
+    font-size: 11.5px;
+    border-radius: 5px;
+  }
+  .view-tab.active {
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .lens-view { flex: 1; min-height: 0; overflow: auto; padding: 10px 12px; font-size: 12.5px; }
+  .lens-view.hidden { display: none; }
+  .lens-section { margin-bottom: 18px; }
+  .lens-section h3 {
+    margin: 0 0 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .lens-table { width: 100%; border-collapse: collapse; }
+  .lens-table th, .lens-table td {
+    text-align: left;
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+  .lens-table th { color: var(--muted); font-weight: 600; }
+  .lens-table td.wrap { white-space: normal; word-break: break-word; }
+  .lens-note { color: var(--muted); font-size: 11.5px; margin: 4px 0 0; }
+  .hotspot-badge {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 10px;
+    color: var(--danger);
+    border: 1.5px solid currentColor;
+  }
+  .exc-type { font-weight: 700; color: var(--danger); }
+
+  #perfetto-iframe {
+    flex: 1;
+    border: 0;
+    width: 100%;
+    min-height: 0;
+    background: #14161b;
+  }
+
+  #graph-wrap {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    position: relative;
+  }
+  #graph-svg { width: 100%; height: 100%; display: block; }
+  #graph-svg text { fill: var(--text); user-select: none; }
+  .node-circle { cursor: pointer; stroke-width: 2; }
+  .node-circle:hover { filter: brightness(1.15); }
+  .node-circle.selected { stroke: var(--accent) !important; stroke-width: 4; }
+  .node-label { font-size: 10px; pointer-events: none; }
+  .edge-line { fill: none; stroke: var(--muted); stroke-width: 1.4; opacity: 0.75; }
+  .edge-label-bg { fill: var(--panel-bg); opacity: 0.9; }
+  .edge-label { font-size: 9px; fill: var(--muted); pointer-events: none; }
+
+  #empty-graph-msg {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 6px 12px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  /* Explain panel: an HTML overlay positioned near the clicked node,
+     inside the graph pane's coordinate space (see app.js positionExplainPanel). */
+  #explain-panel {
+    position: absolute;
+    width: 300px;
+    max-height: 320px;
+    overflow: auto;
+    background: var(--panel-bg);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 5;
+    padding: 10px 12px 12px;
+  }
+  #explain-panel.hidden { display: none; }
+  #explain-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    line-height: 1;
+    padding: 4px 6px;
+    color: var(--muted);
+  }
+  #explain-close:hover { color: var(--text); }
+
+  .explain-title {
+    font-weight: 700;
+    font-size: 13px;
+    padding-right: 18px;
+    margin-bottom: 2px;
+    word-break: break-word;
+  }
+  .explain-node-type {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 11px;
+    margin-left: 4px;
+  }
+  .claim-row {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .claim-row:first-of-type { border-top: none; }
+  .claim-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 3px;
+  }
+  .claim-label { font-weight: 700; font-size: 11.5px; }
+  .claim-text { margin: 0 0 3px; font-size: 12.5px; }
+  .claim-refs { margin: 0; font-size: 10.5px; color: var(--muted); }
+
+  .evidence-badge {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 1px 6px;
+    border-radius: 10px;
+    border: 1.5px solid currentColor;
+  }
+  .evidence-observed     { color: var(--evidence-observed); }
+  .evidence-verified     { color: var(--evidence-verified); }
+  .evidence-inferred     { color: var(--evidence-inferred); }
+  .evidence-hypothesized { color: var(--evidence-hypothesized); }
+
+  .explain-error { color: var(--danger); font-size: 12.5px; }
+  .explain-loading { color: var(--muted); font-size: 12.5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PHOSPHOR MCCP Viewer <small>raw trace + computational graph</small></h1>
+  <div class="controls">
+    <label>
+      trace_id
+      <input type="text" id="trace-input" list="trace-list" placeholder="paste or pick a trace_id..." />
+    </label>
+    <datalist id="trace-list"></datalist>
+    <button id="load-btn" class="primary">Load</button>
+    <button id="refresh-btn" title="Re-scan traces/ for available trace_ids">Refresh list</button>
+    <span class="scale-toggle">
+      scale:
+      <label><input type="radio" name="scale" value="meso" checked /> meso</label>
+      <label><input type="radio" name="scale" value="macro" /> macro</label>
+    </span>
+    <span id="status"></span>
+  </div>
+</header>
+
+<main>
+  <section class="pane" id="perfetto-pane">
+    <div class="pane-header">
+      <h2>Raw trace</h2>
+      <span class="meta">Perfetto UI, embedded via postMessage</span>
+    </div>
+    <iframe id="perfetto-iframe" title="Perfetto trace viewer"
+      src="https://ui.perfetto.dev/#!/?mode=embedded"></iframe>
+  </section>
+
+  <section class="pane" id="graph-pane">
+    <div class="pane-header">
+      <h2>Computational graph</h2>
+      <span class="view-tabs" id="view-tabs">
+        <button class="view-tab active" data-view="graph">Graph</button>
+        <button class="view-tab" data-view="complexity">Complexity</button>
+        <button class="view-tab" data-view="bugs">Bugs</button>
+      </span>
+      <span class="meta" id="graph-meta">no trace loaded</span>
+    </div>
+    <div id="graph-wrap">
+      <svg id="graph-svg" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"></path>
+          </marker>
+        </defs>
+        <g id="edges-layer"></g>
+        <g id="nodes-layer"></g>
+      </svg>
+      <div id="empty-graph-msg">Load a trace_id above to render its graph.</div>
+      <div id="explain-panel" class="hidden">
+        <button id="explain-close" aria-label="close">×</button>
+        <div id="explain-content"></div>
+      </div>
+    </div>
+    <div class="lens-view hidden" id="complexity-view"></div>
+    <div class="lens-view hidden" id="bugs-view"></div>
+    <div class="legend" id="node-legend"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

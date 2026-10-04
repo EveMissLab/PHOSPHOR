@@ -1,0 +1,1 @@
+M9 validation expects all five synthetic workloads to run under B0/B1/B2/B3 with the same correctness contracts, invalid runs retained rather than discarded, mixed-workload or seed-mismatched comparisons marked incompatible, B3 routed through the M8 AI policy adapter, and Ubuntu/Windows native provider tests remaining green.
